@@ -1,5 +1,6 @@
 package com.login.form.service;
 
+import com.login.form.entity.Role;
 import com.login.form.entity.User;
 import com.login.form.repository.RoleRepository;
 import com.login.form.repository.UserRepository;
@@ -26,19 +27,20 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User findUserByEmail(String email) {
-        return this.findUserByEmail(email);
+        return this.userRepository.findByEmail(email);
     }
 
     @Override
     public User findUserByUserName(String userName) {
-        return this.findUserByUserName(userName);
+        return this.userRepository.findByUserName(userName);
     }
 
     @Override
     public User saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.set_active(true);
-        user.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByRole("ADMIN"))));
+        Role role = new Role(user.getCode());
+        user.setRole(role);
         return this.userRepository.save(user);
 
     }

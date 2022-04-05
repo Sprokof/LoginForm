@@ -1,5 +1,6 @@
 package com.login.form.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,14 +8,14 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "USER_ROLES")
 @NoArgsConstructor
-
+@Data
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "role")
+    @Column(name = "USER_ROLE")
     @Getter
     @Setter
     private String role;

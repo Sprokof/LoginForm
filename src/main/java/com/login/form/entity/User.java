@@ -14,8 +14,6 @@ import java.util.Set;
 @Table(name = "USERS")
 @Builder
 @NoArgsConstructor
-@Setter
-@Getter
 @AllArgsConstructor
 public class User {
     @Id
@@ -28,11 +26,11 @@ public class User {
     @Column(name = "EMAIL")
     @Email(message = "*Please provide a valid email")
     private String email;
-    @Column(name = "PASS_WORD")
+    @Column(name = "USER_PASSWORD")
     @Length(min = 5, max = 30, message = "*Your password must be in range from 5 to 30 characters")
     @NotNull(message = "*Please provide a password")
     private String password;
-    @Column(name = "NA_ME")
+    @Column(name = "FIRST_NAME")
     @NotNull(message = "*Please provide your name")
     private String name;
     @Column(name = "LAST_NAME")
@@ -40,8 +38,12 @@ public class User {
     private String lastName;
     @Column(name = "IS_ACTIVE")
     private boolean is_active;
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @Column(name = "CODE")
+    private String code;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
 
 }
